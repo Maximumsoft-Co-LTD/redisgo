@@ -43,6 +43,11 @@ func New(addr string, db int) *Client {
 	return &Client{rdb: rdb}
 }
 
+func NewOptions(opts *redis.Options) *Client {
+	rdb := redis.NewClient(opts)
+	return &Client{rdb: rdb}
+}
+
 // Connect returns a cached Client for the given name. Config is read from
 // connConfigs (env vars). First call for a name creates and caches the client.
 func Connect(name string, addr string, db int) *Client {
@@ -51,6 +56,16 @@ func Connect(name string, addr string, db int) *Client {
 	}
 
 	client := New(addr, db)
+	connCache.Store(name, client)
+	return client
+}
+
+func ConnectOptions(name string, opts redis.Options) *Client {
+	if c, ok := connCache.Load(name); ok {
+		return c.(*Client)
+	}
+
+	client := NewOptions(&opts)
 	connCache.Store(name, client)
 	return client
 }
