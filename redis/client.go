@@ -1,15 +1,18 @@
 package redis
 
 import (
-	"os"
-	"strconv"
 	"sync"
 	"time"
 
 	"github.com/go-redis/redis/v8"
 )
 
-// Client wraps a redis.Client and provides key, list, set, and stream operations.
+const DB0 = 0
+
+// DefaultConn is the default connection name used by Connect/Close.
+const DefaultConn = "default"
+
+// Client wraps a redis.Client and provides key, hash, list, set, stream, and pub/sub operations.
 type Client struct {
 	rdb *redis.Client
 }
@@ -21,9 +24,9 @@ type ConnConfig struct {
 }
 
 var (
-	// DefaultConfig is the named config for "default" (REDIS_URL, REDIS_DB).
+	// DefaultConfig is the named config for DefaultConn (REDIS_URL, REDIS_DB).
 	DefaultConfig = map[string]ConnConfig{
-		"default": {URLKey: "REDIS_URL", DBKey: "REDIS_DB"},
+		DefaultConn: {URLKey: "REDIS_URL", DBKey: "REDIS_DB"},
 	}
 	connCache   sync.Map
 	connConfigs = DefaultConfig
@@ -42,16 +45,11 @@ func New(addr string, db int) *Client {
 
 // Connect returns a cached Client for the given name. Config is read from
 // connConfigs (env vars). First call for a name creates and caches the client.
-func Connect(name string) *Client {
+func Connect(name string, addr string, db int) *Client {
 	if c, ok := connCache.Load(name); ok {
 		return c.(*Client)
 	}
-	cfg, ok := connConfigs[name]
-	if !ok {
-		return nil
-	}
-	addr := os.Getenv(cfg.URLKey)
-	db, _ := strconv.Atoi(os.Getenv(cfg.DBKey))
+
 	client := New(addr, db)
 	connCache.Store(name, client)
 	return client

@@ -1,4 +1,4 @@
-module smskub
+module redisgo
 
 go 1.21
 

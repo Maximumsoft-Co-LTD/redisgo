@@ -1,18 +1,19 @@
 package redis_test
 
 import (
+	"context"
 	"fmt"
 
-	"smskub/internal/redis"
+	"redisgo/redis"
 
 	goredis "github.com/go-redis/redis/v8"
 )
 
 // ExampleClient_XAdd demonstrates adding a message to a stream.
 func ExampleClient_XAdd() {
-	client := redis.New("localhost:6379", 0)
+	client := redis.New("localhost:6379", redis.DB0)
 	defer client.Close()
-	id, err := client.XAdd(&goredis.XAddArgs{
+	id, err := client.XAdd(context.Background(), &goredis.XAddArgs{
 		Stream: "example:mystream",
 		Values: map[string]interface{}{"field": "value"},
 	})
@@ -27,7 +28,7 @@ func ExampleClient_XAdd() {
 func ExampleClient_XLen() {
 	client := redis.New("localhost:6379", 0)
 	defer client.Close()
-	n, err := client.XLen("example:mystream")
+	n, err := client.XLen(context.Background(), "example:mystream")
 	if err != nil {
 		fmt.Println("xlen error:", err)
 		return
@@ -37,9 +38,9 @@ func ExampleClient_XLen() {
 
 // ExampleClient_XRange demonstrates reading a range of stream messages.
 func ExampleClient_XRange() {
-	client := redis.New("localhost:6379", 0)
+	client := redis.New("localhost:6379", redis.DB0)
 	defer client.Close()
-	msgs, err := client.XRange("example:mystream", "-", "+")
+	msgs, err := client.XRange(context.Background(), "example:mystream", "-", "+")
 	if err != nil {
 		fmt.Println("xrange error:", err)
 		return

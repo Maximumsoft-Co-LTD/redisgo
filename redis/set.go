@@ -7,8 +7,7 @@ import (
 )
 
 // SetSet adds value to the set at key and sets TTL.
-func (c *Client) SetSet(key string, ttl time.Duration, value interface{}) error {
-	ctx := context.Background()
+func (c *Client) SetSet(ctx context.Context, key string, ttl time.Duration, value interface{}) error {
 	count, err := c.rdb.SAdd(ctx, key, value).Result()
 	if err != nil || count == 0 {
 		return err
@@ -24,7 +23,6 @@ func (c *Client) SetSet(key string, ttl time.Duration, value interface{}) error 
 }
 
 // IsMemberSet returns whether value is a member of the set at key.
-func (c *Client) IsMemberSet(key string, value string) (bool, error) {
-	ctx := context.Background()
+func (c *Client) IsMemberSet(ctx context.Context, key string, value string) (bool, error) {
 	return c.rdb.SIsMember(ctx, key, value).Result()
 }
