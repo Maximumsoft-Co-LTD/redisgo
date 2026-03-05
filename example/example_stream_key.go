@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"redisgo/redis"
+	"github.com/Maximumsoft-Co-LTD/redisgo/redis"
 
 	goredis "github.com/go-redis/redis/v8"
 )

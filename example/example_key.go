@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"redisgo/redis"
+	"github.com/Maximumsoft-Co-LTD/redisgo/redis"
 )
 
 // ExampleNew shows creating a direct client with New (uncached).

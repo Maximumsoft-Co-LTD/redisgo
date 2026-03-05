@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"redisgo/redis"
+	"github.com/Maximumsoft-Co-LTD/redisgo/redis"
 )
 
 // ExampleClient_list demonstrates SetList (RPush), PopList (LPop), and LenList (LLEN).

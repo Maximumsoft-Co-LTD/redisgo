@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"redisgo/redis"
+	"github.com/Maximumsoft-Co-LTD/redisgo/redis"
 
 	gomock "go.uber.org/mock/gomock"
 )
