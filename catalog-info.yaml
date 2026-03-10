@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: redisgo
+  description: Go Redis client library built on go-redis/v8 — JSON keys, lists, sets, hashes, streams, pub/sub. Go 1.21+.
+  annotations:
+    backstage.io/techdocs-ref: dir:docs
+spec:
+  type: library
+  owner: group:default/platform
+  lifecycle: experimental
+  system: opsdex
