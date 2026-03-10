@@ -1,6 +1,7 @@
 site_name: redisgo
 site_description: Go Redis client library built on go-redis/v8 — JSON keys, lists, sets, hashes, streams, pub/sub. Go 1.21+.
 
+docs_dir: .
 nav:
   - Home: index.md
 
