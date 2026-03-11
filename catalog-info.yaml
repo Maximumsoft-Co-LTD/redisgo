@@ -4,7 +4,7 @@ metadata:
   name: redisgo
   description: Go Redis client library built on go-redis/v8 — JSON keys, lists, sets, hashes, streams, pub/sub. Go 1.21+.
   annotations:
-    backstage.io/techdocs-ref: dir:docs
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: library
   owner: group:default/platform
