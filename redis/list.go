@@ -63,3 +63,30 @@ func (c *Client) LTrim(ctx context.Context, key string, start, stop int64) error
 func (c *Client) LenList(ctx context.Context, key string) (int64, error) {
 	return c.rdb.LLen(ctx, key).Result()
 }
+
+// RPush appends one or multiple values to a list
+func (c *Client) RPush(ctx context.Context, key string, values ...interface{}) error {
+	return c.rdb.RPush(ctx, key, values...).Err()
+}
+
+// LPop removes and gets the first element in a list and unmarshals it into dest
+func (c *Client) LPop(ctx context.Context, key string, dest interface{}) error {
+	val, err := c.rdb.LPop(ctx, key).Result()
+	if err != nil {
+		return err
+	}
+	return json.Unmarshal([]byte(val), dest)
+}
+
+// LLen returns the length of a list
+func (c *Client) LLen(ctx context.Context, key string) (int64, error) {
+	return c.rdb.LLen(ctx, key).Result()
+}
+
+// LRem removes elements from a list
+// count > 0: Remove elements equal to value moving from head to tail.
+// count < 0: Remove elements equal to value moving from tail to head.
+// count = 0: Remove all elements equal to value.
+func (c *Client) LRem(ctx context.Context, key string, count int64, value interface{}) error {
+	return c.rdb.LRem(ctx, key, count, value).Err()
+}

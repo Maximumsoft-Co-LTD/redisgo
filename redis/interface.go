@@ -43,9 +43,18 @@ type ClientInterface interface {
 	LRange(ctx context.Context, key string, start, stop int64) ([]string, error)
 	LTrim(ctx context.Context, key string, start, stop int64) error
 	LenList(ctx context.Context, key string) (int64, error)
+	RPush(ctx context.Context, key string, values ...interface{}) error
+	LPop(ctx context.Context, key string, dest interface{}) error
+	LLen(ctx context.Context, key string) (int64, error)
+	LRem(ctx context.Context, key string, count int64, value interface{}) error
 
 	SetSet(ctx context.Context, key string, ttl time.Duration, value interface{}) error
 	IsMemberSet(ctx context.Context, key string, value string) (bool, error)
+	SAdd(ctx context.Context, key string, members ...interface{}) error
+	SRem(ctx context.Context, key string, members ...interface{}) error
+	SIsMember(ctx context.Context, key string, member interface{}) (bool, error)
+	SMembers(ctx context.Context, key string) ([]string, error)
+	SCard(ctx context.Context, key string) (int64, error)
 
 	XAdd(ctx context.Context, args *redis.XAddArgs) (string, error)
 	XRead(ctx context.Context, args *redis.XReadArgs) ([]redis.XStream, error)
