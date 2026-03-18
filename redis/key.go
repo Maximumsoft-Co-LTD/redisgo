@@ -150,3 +150,13 @@ func (c *Client) GetTTL(ctx context.Context, key string) (time.Duration, error) 
 func (c *Client) SetTTL(ctx context.Context, key string, ttl time.Duration) error {
 	return c.rdb.Expire(ctx, key, ttl).Err()
 }
+
+// Expire sets a time to live for a key
+func (c *Client) Expire(ctx context.Context, key string, ttl time.Duration) error {
+	return c.rdb.Expire(ctx, key, ttl).Err()
+}
+
+// TTL returns the remaining time to live of a key
+func (c *Client) TTL(ctx context.Context, key string) (time.Duration, error) {
+	return c.rdb.TTL(ctx, key).Result()
+}

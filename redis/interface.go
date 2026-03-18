@@ -28,6 +28,8 @@ type ClientInterface interface {
 	GetKeyValueMap(ctx context.Context, keyPattern string, data interface{}) error
 	GetTTL(ctx context.Context, key string) (time.Duration, error)
 	SetTTL(ctx context.Context, key string, ttl time.Duration) error
+	Expire(ctx context.Context, key string, ttl time.Duration) error
+	TTL(ctx context.Context, key string) (time.Duration, error)
 
 	FlushDB(ctx context.Context) error
 	FlushAll(ctx context.Context) error

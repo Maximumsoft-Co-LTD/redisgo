@@ -84,6 +84,20 @@ func (mr *MockClientMockRecorder) DelMany(ctx, keyPattern any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DelMany", reflect.TypeOf((*MockClient)(nil).DelMany), ctx, keyPattern)
 }
 
+// Expire mocks base method.
+func (m *MockClient) Expire(ctx context.Context, key string, ttl time.Duration) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Expire", ctx, key, ttl)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Expire indicates an expected call of Expire.
+func (mr *MockClientMockRecorder) Expire(ctx, key, ttl any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Expire", reflect.TypeOf((*MockClient)(nil).Expire), ctx, key, ttl)
+}
+
 // FlushAll mocks base method.
 func (m *MockClient) FlushAll(ctx context.Context) error {
 	m.ctrl.T.Helper()
@@ -652,6 +666,21 @@ func (mr *MockClientMockRecorder) Subscribe(ctx any, channels ...any) *gomock.Ca
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]any{ctx}, channels...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Subscribe", reflect.TypeOf((*MockClient)(nil).Subscribe), varargs...)
+}
+
+// TTL mocks base method.
+func (m *MockClient) TTL(ctx context.Context, key string) (time.Duration, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TTL", ctx, key)
+	ret0, _ := ret[0].(time.Duration)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TTL indicates an expected call of TTL.
+func (mr *MockClientMockRecorder) TTL(ctx, key any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TTL", reflect.TypeOf((*MockClient)(nil).TTL), ctx, key)
 }
 
 // XAck mocks base method.
